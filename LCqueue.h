@@ -1,22 +1,32 @@
+
+//Arduino doesn't like C libs, apparently. that's why this is here. 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef _LCQUEUE_H_
 #define _LCQUEUE_H_
-//queue structure
 
-//doubly linked nodes
+
+//doubly linked node structure
 typedef struct node{
  struct node *leading;
  struct node *trailing;
  int value;
 } node;
 
+
+//queue structure
 typedef struct LCqueue{
  struct node *front;
  struct node *back;
  int elements;
 } LCqueue;
 
+//node constructor
 node *new_node(int x);
 
+//LCqueue constructor
 LCqueue *new_queue(void);
 
 //removes first element and returns value
@@ -36,4 +46,8 @@ int end(const LCqueue* q);
 
 int test(LCqueue* q);
 
+#endif
+
+#ifdef __cplusplus
+}
 #endif

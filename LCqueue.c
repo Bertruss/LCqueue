@@ -1,12 +1,10 @@
 #include <stdlib.h>
 #include "LCqueue.h"
 
-
-
 //simplified doubly linked-list queue
-//for some reason available queue libraries wouldn't work on the teensy.
 
-//instantiates a memory location with a new queue. takes a single value to instantiate as the first node
+
+//LC queue constructor 
 LCqueue *new_queue(void){
 	LCqueue *temp = (LCqueue *)malloc(sizeof(LCqueue));
 	temp->front = NULL;
@@ -15,6 +13,7 @@ LCqueue *new_queue(void){
 	return temp;  		
 }
 
+//node constructor
 node *new_node(int x){
 	node *temp = (node *)malloc(sizeof(node));
 	temp->leading = NULL;
@@ -23,6 +22,7 @@ node *new_node(int x){
 	return temp;
 }
 
+//return first elements stored value and removes the element
 int pop(LCqueue* q){
 	int temp;
 	node *tempNode;
@@ -54,6 +54,7 @@ int pop(LCqueue* q){
 	}		
 }
 
+//adds element to the top of the queue which stores passed in value
 void push(LCqueue* q, int x){
 	//allocating memory
         node *temp = new_node(x); 
@@ -74,20 +75,19 @@ void push(LCqueue* q, int x){
 	q->elements = q->elements + 1; 
 }
 
+//returns the number of elements in the queue
 int count(const LCqueue* q){
 	return q->elements;
 }
 
+//returns the value of the first elements
 int front(const LCqueue* q){
 	return q->front->value;
  }
 
-
+//returns the value of the last element
 int end(const LCqueue* q){
 	return q->back->value;
 }
 
-int test(LCqueue *q){
-	
-}
 
