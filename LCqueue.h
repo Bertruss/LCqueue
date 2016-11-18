@@ -7,13 +7,15 @@ typedef struct node{
  struct node *leading;
  struct node *trailing;
  int value;
-};
+} node;
 
 typedef struct LCqueue{
  struct node *front;
- struct  node *back;
+ struct node *back;
  int elements;
 } LCqueue;
+
+node *new_node(int x);
 
 LCqueue *new_queue(void);
 
@@ -31,5 +33,7 @@ int front(const LCqueue* q);
 
 //returns value of last element
 int end(const LCqueue* q);
+
+int test(LCqueue* q);
 
 #endif

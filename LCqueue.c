@@ -1,22 +1,33 @@
 #include <stdlib.h>
 #include "LCqueue.h"
+
+
+
 //simplified doubly linked-list queue
 //for some reason available queue libraries wouldn't work on the teensy.
 
 //instantiates a memory location with a new queue. takes a single value to instantiate as the first node
 LCqueue *new_queue(void){
-	LCqueue* temp = (LCqueue *)malloc(sizeof(LCqueue));
+	LCqueue *temp = (LCqueue *)malloc(sizeof(LCqueue));
 	temp->front = NULL;
 	temp->back = NULL;
 	temp->elements = 0;
 	return temp;  		
 }
 
+node *new_node(int x){
+	node *temp = (node *)malloc(sizeof(node));
+	temp->leading = NULL;
+	temp->trailing = NULL;
+	temp->value = x;
+	return temp;
+}
+
 int pop(LCqueue* q){
 	int temp;
-	struct node *tempNode;
+	node *tempNode;
 	if(q->elements == 0){
-		return NULL;
+		return -1;
 	}
 	else{		
 		//decrements # of elements
@@ -31,7 +42,8 @@ int pop(LCqueue* q){
 		if(tempNode != NULL){
 		//clears the leading pointer on the next node 
 		tempNode->leading = NULL;
-				
+		}
+
 		//deallocates the memory from the "front" node. 
 		free(q->front);
 
@@ -39,25 +51,25 @@ int pop(LCqueue* q){
 		q->front = tempNode;
 		
 		return temp;
-		}
-		
 	}		
 }
 
 void push(LCqueue* q, int x){
 	//allocating memory
-        struct node *temp = malloc(sizeof(struct node)); 
-	temp->value = x;
+        node *temp = new_node(x); 
 
 	//linking all necessary links
-	
-	//linking forward
-	temp->leading = q->back;
-
-	//linking backwards
-	q->back->trailing = temp;
-	q->back = temp;
-
+	if(q->back == NULL && q->front == NULL){
+		//from empty queue
+		q->back = temp;
+		q->front = temp;
+	}
+	else{
+		//linking 
+		q->back->trailing = temp;
+		temp->leading = q->back;
+		q->back = temp;
+	}
 	//incrementing "elements" count
 	q->elements = q->elements + 1; 
 }
@@ -74,3 +86,8 @@ int front(const LCqueue* q){
 int end(const LCqueue* q){
 	return q->back->value;
 }
+
+int test(LCqueue *q){
+	
+}
+
