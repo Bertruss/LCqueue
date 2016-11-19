@@ -1,8 +1,8 @@
-
 //Arduino doesn't like C libs, apparently. that's why this is here. 
-#ifdef __cplusplus
-extern "C" {
-#endif
+//uncomment these lines for use as an arduino library
+//#ifdef __cplusplus
+//extern "C" {
+//#endif
 
 #ifndef _LCQUEUE_H_
 #define _LCQUEUE_H_
@@ -48,6 +48,7 @@ int test(LCqueue* q);
 
 #endif
 
-#ifdef __cplusplus
-}
-#endif
+//also, uncomment these lines.
+//#ifdef __cplusplus
+//}
+//#endif

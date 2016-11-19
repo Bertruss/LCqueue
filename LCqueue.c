@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <LCqueue.h>
+#include "LCqueue.h"
 
 //simplified doubly linked-list queue
 
