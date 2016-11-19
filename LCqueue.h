@@ -23,10 +23,10 @@ typedef struct LCqueue{
  int elements;
 } LCqueue;
 
-//node constructor
+//node instantiator
 node *new_node(int x);
 
-//LCqueue constructor
+//LCqueue instantiator
 LCqueue *new_queue(void);
 
 //removes first element and returns value
