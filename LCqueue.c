@@ -1,10 +1,10 @@
 #include <stdlib.h>
-#include "LCqueue.h"
+#include <LCqueue.h>
 
 //simplified doubly linked-list queue
 
 
-//LC queue constructor 
+//LC queue memory allocation and variable instantiation
 LCqueue *new_queue(void){
 	LCqueue *temp = (LCqueue *)malloc(sizeof(LCqueue));
 	temp->front = NULL;
@@ -13,7 +13,7 @@ LCqueue *new_queue(void){
 	return temp;  		
 }
 
-//node constructor
+//node memory allocation and variable instantiation
 node *new_node(int x){
 	node *temp = (node *)malloc(sizeof(node));
 	temp->leading = NULL;
@@ -39,17 +39,20 @@ int pop(LCqueue* q){
 		//pulls the pointer to the next node from the front
 		tempNode = q->front->trailing;
 		
+		//de-allocates memory for front nodes
+		free(q->front);
+		
+		//set the following node to front
+		q->front = tempNode;
+
 		if(tempNode != NULL){
 		//clears the leading pointer on the next node 
-		tempNode->leading = NULL;
+			q->front->leading = NULL;
 		}
-
-		//deallocates the memory from the "front" node. 
-		free(q->front);
-
-		//sets the new front node
-		q->front = tempNode;
-		
+		else{
+			q->back = NULL;	
+		}
+			
 		return temp;
 	}		
 }
@@ -60,32 +63,34 @@ void push(LCqueue* q, int x){
         node *temp = new_node(x); 
 
 	//linking all necessary links
+	
+	//if node is being added to an empty queue, set this node as both the front and back node
 	if(q->back == NULL && q->front == NULL){
-		//from empty queue
 		q->back = temp;
 		q->front = temp;
 	}
-	else{
-		//linking 
+	else{ //if not empty, links the back node with the new node and vice versa,
+	      //then set the back pointer of the queue to point at the new node 
 		q->back->trailing = temp;
 		temp->leading = q->back;
 		q->back = temp;
 	}
+	
 	//incrementing "elements" count
 	q->elements = q->elements + 1; 
 }
 
-//returns the number of elements in the queue
+//returns the number of nodes in the queue
 int count(const LCqueue* q){
 	return q->elements;
 }
 
-//returns the value of the first elements
+//returns the value held by the first Node in the queue
 int front(const LCqueue* q){
 	return q->front->value;
  }
 
-//returns the value of the last element
+//returns the value held by the last Node in the queue
 int end(const LCqueue* q){
 	return q->back->value;
 }
