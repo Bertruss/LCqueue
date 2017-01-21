@@ -16,7 +16,6 @@ LCqueue *new_queue(void){
 //node memory allocation and variable instantiation
 node *new_node(int x){
 	node *temp = (node *)malloc(sizeof(node));
-	temp->leading = NULL;
 	temp->trailing = NULL;
 	temp->value = x;
 	return temp;
@@ -44,15 +43,11 @@ int pop(LCqueue* q){
 		
 		//set the following node to front
 		q->front = tempNode;
+		
+		if(tempNode == NULL){
+		q->back = NULL;	
+		}
 
-		if(tempNode != NULL){
-		//clears the leading pointer on the next node 
-			q->front->leading = NULL;
-		}
-		else{
-			q->back = NULL;	
-		}
-			
 		return temp;
 	}		
 }
@@ -69,10 +64,9 @@ void push(LCqueue* q, int x){
 		q->back = temp;
 		q->front = temp;
 	}
-	else{ //if not empty, links the back node with the new node and vice versa,
+	else{ //if not empty, links the back node 
 	      //then set the back pointer of the queue to point at the new node 
 		q->back->trailing = temp;
-		temp->leading = q->back;
 		q->back = temp;
 	}
 	

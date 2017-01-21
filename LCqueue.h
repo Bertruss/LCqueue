@@ -11,7 +11,6 @@
 
 //doubly linked node structure
 typedef struct node{
- struct node *leading;
  struct node *trailing;
  int value;
 } node;
